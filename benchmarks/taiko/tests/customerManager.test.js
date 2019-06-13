@@ -2,7 +2,7 @@ const assert = require('assert');
 const { openBrowser,closeBrowser, goto, title, click, textBox, 
     write, text,into, below, press, toRightOf, inputField, waitFor, dropDown, screenshot } = require('taiko');
 
-describe('test groceryWorks ', () => {
+describe('test customer manager', () => {
 
     before(async () => {
         await openBrowser();

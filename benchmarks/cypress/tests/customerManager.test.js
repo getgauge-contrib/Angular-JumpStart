@@ -1,4 +1,4 @@
-context('test groceryWorks', () => {
+context('test customer manager', () => {
     before(() => {
       cy.visit('/');
     });

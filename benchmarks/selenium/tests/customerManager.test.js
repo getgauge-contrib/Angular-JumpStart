@@ -3,7 +3,7 @@ const webPage = require('../utils/driverActions');
 const assert = require('assert');
 
 
-describe ('Google search automated testing', async function () {
+describe ('test customer manager', async function () {
     let webpage, driver;
 
     before(async () => {

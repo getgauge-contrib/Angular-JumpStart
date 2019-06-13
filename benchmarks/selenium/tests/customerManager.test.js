@@ -62,9 +62,9 @@ describe ('Google search automated testing', async function () {
     it('should let edit customer', async () => {
         await driver.executeScript('window.scrollBy(0,0)');
         (await webpage.findByCss('a[href="/customers/23/details"]')).click();
-        await driver.sleep(2000);
+        await driver.sleep(1000);
         (await webpage.findByCss('a[href="/customers/23/edit"]')).click();
-        await driver.sleep(2000);
+        await driver.sleep(1000);
         (await webpage.findByCss('input[name="firstName"]')).sendKeys('updated');
         await driver.executeScript('window.scrollBy(0,500)');
         (await webpage.findByCss('button[type="submit"]')).click();
@@ -78,7 +78,7 @@ describe ('Google search automated testing', async function () {
         (await webpage.findByCss('.app-title')).click();
         await driver.sleep(2000);
         (await webpage.findByCss('a[href="/customers/1/orders"]')).click();
-        await driver.sleep(2000);
+        await driver.sleep(1000);
         assert.equal(await (await webpage.findByCss('tbody > tr:nth-child(1) > td:nth-child(1)')).getText(),'Basketball');
         assert.equal(await (await webpage.findByCss('tbody > tr:nth-child(2) > td:nth-child(1)')).getText(),'Shoes');
         assert.equal(await (await webpage.findByCss('.summary-border td:nth-child(2)')).getText(),'$207.98');

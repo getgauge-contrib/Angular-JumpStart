@@ -59,21 +59,29 @@ describe ('Google search automated testing', async function () {
         assert.ok(matchFound);
     });
 
-    xit('should let edit customer', async () => {
-        await click('First name Last name');
-        await click('Edit customer');
-        await write('updated',into(textBox(below('First Name'))));
-        await click('update');
-        await click('Customer Details');
-        assert.ok(await text('First nameupdated Last name').exists());
+    it('should let edit customer', async () => {
+        await driver.executeScript('window.scrollBy(0,0)');
+        (await webpage.findByCss('a[href="/customers/23/details"]')).click();
+        await driver.sleep(2000);
+        (await webpage.findByCss('a[href="/customers/23/edit"]')).click();
+        await driver.sleep(2000);
+        (await webpage.findByCss('input[name="firstName"]')).sendKeys('updated');
+        await driver.executeScript('window.scrollBy(0,500)');
+        (await webpage.findByCss('button[type="submit"]')).click();
+        await driver.sleep(1000);
+        await webpage.visit('http://localhost:3000/customers/23/details');
+        await driver.sleep(1000);
+        assert.ok((await (await webpage.findByCss('cm-customer-details h4')).getText()).includes('First nameupdated'));
     });
 
-    xit('should let view customer order', async () => {
-        await click('Customer Manager');
-        await click(text('View Orders',below('Ted James')));
-        assert.ok(await text('Basketball').exists());
-        assert.ok(await text('Shoes').exists());
-        assert.ok(await text('$207.98').exists());
+    it('should let view customer order', async () => {
+        (await webpage.findByCss('.app-title')).click();
+        await driver.sleep(2000);
+        (await webpage.findByCss('a[href="/customers/1/orders"]')).click();
+        await driver.sleep(2000);
+        assert.equal(await (await webpage.findByCss('tbody > tr:nth-child(1) > td:nth-child(1)')).getText(),'Basketball');
+        assert.equal(await (await webpage.findByCss('tbody > tr:nth-child(2) > td:nth-child(1)')).getText(),'Shoes');
+        assert.equal(await (await webpage.findByCss('.summary-border td:nth-child(2)')).getText(),'$207.98');
     });
     
 });

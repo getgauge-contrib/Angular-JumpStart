@@ -25,6 +25,10 @@ const webPage = function() {
         return await this.driver.findElement(By.css(css));
     };
 
+    this.findAllByCss = async function(css) {
+        return await this.driver.findElements(By.css(css));
+    }
+
 };
 
 module.exports = webPage;

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "testcafe chrome:headless tests/*.js"
+    "test": "testcafe chrome:headless tests/*.js -s screenshots"
   },
   "author": "",
   "license": "ISC",

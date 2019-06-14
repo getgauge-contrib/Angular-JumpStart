@@ -3,6 +3,7 @@ const {Builder, By} = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 let o = new chrome.Options();
 o.addArguments('headless');
+o.addArguments("--window-size=1440,900")
 
 const webPage = function() {
     this.driver = new Builder()

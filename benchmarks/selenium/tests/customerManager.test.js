@@ -43,14 +43,12 @@ describe ('test customer manager', async function () {
         (await webpage.findByCss('input[name="lastName"]')).sendKeys('last name');
         (await webpage.findByCss('input[name="address"]')).sendKeys('address');
         (await webpage.findByCss('input[name="city"]')).sendKeys('city');
-        await driver.executeScript('window.scrollBy(0,250)');
         (await webpage.findByCss('select[name="state"]')).click();
         (await webpage.findByCss('select[name="state"] option:nth-child(1)')).click();
         (await webpage.findByCss('button[type="submit"]')).click();
-        await driver.sleep(2000);
-        await driver.executeScript('window.scrollBy(0,500)');
+        await driver.sleep(1000);
         (await webpage.findByCss('cm-pagination li:nth-child(4) a')).click(); //click 3
-        await driver.sleep(2000);
+        await driver.sleep(1000);
         let cards = await webpage.findAllByCss('.card .card-header .white');
         let matchFound = false;
         for(const card of cards){
@@ -60,23 +58,21 @@ describe ('test customer manager', async function () {
     });
 
     it('should let edit customer', async () => {
-        await driver.executeScript('window.scrollBy(0,0)');
         (await webpage.findByCss('a[href="/customers/23/details"]')).click();
         await driver.sleep(1000);
         (await webpage.findByCss('a[href="/customers/23/edit"]')).click();
         await driver.sleep(1000);
         (await webpage.findByCss('input[name="firstName"]')).sendKeys('updated');
-        await driver.executeScript('window.scrollBy(0,500)');
         (await webpage.findByCss('button[type="submit"]')).click();
         await driver.sleep(1000);
-        await webpage.visit('http://localhost:3000/customers/23/details');
+        (await webpage.findByCss('a[href="/customers/23/details"]')).click();
         await driver.sleep(1000);
         assert.ok((await (await webpage.findByCss('cm-customer-details h4')).getText()).includes('First nameupdated'));
     });
 
     it('should let view customer order', async () => {
         (await webpage.findByCss('.app-title')).click();
-        await driver.sleep(2000);
+        await driver.sleep(1000);
         (await webpage.findByCss('a[href="/customers/1/orders"]')).click();
         await driver.sleep(1000);
         assert.equal(await (await webpage.findByCss('tbody > tr:nth-child(1) > td:nth-child(1)')).getText(),'Basketball');

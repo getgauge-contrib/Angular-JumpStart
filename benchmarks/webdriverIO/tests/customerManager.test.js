@@ -2,6 +2,7 @@ const assert = require('assert');
 
 describe('test customer manager', () => {
     before(async () => {
+        await browser.setWindowSize(1440, 900);
         await browser.url('http://localhost:3000');
     });
 
@@ -33,10 +34,8 @@ describe('test customer manager', () => {
         await (await $('input[name="address"]')).setValue('address');
         await (await $('input[name="city"]')).setValue('city');
         await (await $('select[name="state"]')).selectByIndex(0);
-        await browser.execute('window.scrollBy(0,500)');
         await (await $('button[type="submit"]')).click();
         await (await $('cm-pagination li:nth-child(4) a')).waitForExist();
-        await browser.execute('window.scrollBy(0,500)');
         await (await $('cm-pagination li:nth-child(4) a')).click();
         let cards = await $$('.card .card-header .white');
         let matchFound = false;
@@ -46,13 +45,15 @@ describe('test customer manager', () => {
         assert.ok(matchFound);
     });
 
-    xit('should let edit customer', async () => {
-        await click('First name Last name');
-        await click('Edit customer');
-        await write('updated',into(textBox(below('First Name'))));
-        await click('update');
-        await click('Customer Details');
-        assert.ok(await text('First nameupdated Last name').exists());
+    it('should let edit customer', async () => {
+        await (await $('a[href="/customers/23/details')).click();
+        await (await $('a[href="/customers/23/edit"]')).waitForExist();
+        await (await $('a[href="/customers/23/edit"]')).click();
+        await (await $('input[name="firstName"]')).waitForExist();
+        await (await $('input[name="firstName"]')).addValue('updated');
+        await (await $('button[type="submit"]')).click();
+        await (await $('a[href="/customers/23/details')).click();
+        assert.ok((await (await $('cm-customer-details h4')).getText()).includes('First nameupdated'));
     });
 
     xit('should let view customer order', async () => {

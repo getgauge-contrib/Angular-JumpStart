@@ -1,6 +1,7 @@
 const assert = require('assert');
 
 describe('test customer manager', () => {
+    
     before(async () => {
         await browser.setWindowSize(1440, 900);
         await browser.url('http://localhost:3000');
@@ -56,13 +57,13 @@ describe('test customer manager', () => {
         assert.ok((await (await $('cm-customer-details h4')).getText()).includes('First nameupdated'));
     });
 
-    xit('should let view customer order', async () => {
-        await click('Customer Manager');
-        await click(text('View Orders',below('Ted James')));
-        assert.ok(await text('Basketball').exists());
-        assert.ok(await text('Shoes').exists());
-        assert.ok(await text('$207.98').exists());
+    it('should let view customer order', async () => {
+        await (await $('.app-title')).click();
+        await (await $('a[href="/customers/1/orders"]')).waitForExist();
+        await (await $('a[href="/customers/1/orders"]')).click();
+        assert.equal(await (await $('tbody > tr:nth-child(1) > td:nth-child(1)')).getText(),'Basketball');
+        assert.equal(await (await $('tbody > tr:nth-child(2) > td:nth-child(1)')).getText(),'Shoes');
+        assert.equal(await (await $('.summary-border td:nth-child(2)')).getText(),'$207.98');
     });
-
 
 });

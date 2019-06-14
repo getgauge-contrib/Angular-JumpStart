@@ -23,7 +23,6 @@ test('should filter customers', async (t) => {
 
 test('should let adding customer', async (t) => {
     await t.click(Selector('a[href="/customers/0/edit"]'));
-    // await t.takeScreenshot('something.png');
     await t.typeText(Selector('input[name="email"]'),'admin@customermanager.com');
     await t.typeText(Selector('input[name="password"]'),'password1234');
     await t.click(Selector('button[type="submit"]'));
@@ -38,20 +37,22 @@ test('should let adding customer', async (t) => {
     await t.expect(await (await Selector('.card .card-header .white').withText('First name Last name')).exists).ok();
 });
 
-// it('should let edit customer', async () => {
-//     await t.click(Selector('a[href="/customers/23/details'));
-//     await t.click(('a[href="/customers/23/edit"]'));
-//     await t.typeText(Selector('input[name="firstName"]'),'updated');
-//     await t.click(('button[type="submit"]'));
-//     await (await $('a[href="/customers/23/details')).click();
-//     assert.ok((await (await $('cm-customer-details h4')).getText()).includes('First nameupdated'));
-// });
+test('should let edit customer', async (t) => {
+    await t.click(Selector('cm-pagination li:nth-child(4) a'));
+    await t.click(Selector('a[href="/customers/23/details"]'));
+    await t.click(('a[href="/customers/23/edit"]'));
+    await t.typeText(Selector('input[name="email"]'),'admin@customermanager.com');
+    await t.typeText(Selector('input[name="password"]'),'password1234');
+    await t.click(Selector('button[type="submit"]'));
+    await t.typeText(Selector('input[name="firstName"]'),'updated');
+    await t.click(('button[type="submit"]'));
+    await t.click(('a[href="/customers/23/details"]'));
+    await t.expect(await Selector('cm-customer-details h4').innerText).contains('First nameupdated');
+});
 
-// it('should let view customer order', async () => {
-//     await (await $('.app-title')).click();
-//     await (await $('a[href="/customers/1/orders"]')).waitForExist();
-//     await (await $('a[href="/customers/1/orders"]')).click();
-//     assert.equal(await (await $('tbody > tr:nth-child(1) > td:nth-child(1)')).getText(),'Basketball');
-//     assert.equal(await (await $('tbody > tr:nth-child(2) > td:nth-child(1)')).getText(),'Shoes');
-//     assert.equal(await (await $('.summary-border td:nth-child(2)')).getText(),'$207.98');
-// });
+test('should let view customer order', async (t) => {
+    await t.click(Selector('a[href="/customers/1/orders"]'));
+    await t.expect(await Selector(('tbody > tr:nth-child(1) > td:nth-child(1)')).innerText).eql('Basketball');
+    await t.expect(await Selector(('tbody > tr:nth-child(2) > td:nth-child(1)')).innerText).eql('Shoes');
+    await t.expect(await Selector(('.summary-border td:nth-child(2)')).innerText).eql('$207.98');
+});

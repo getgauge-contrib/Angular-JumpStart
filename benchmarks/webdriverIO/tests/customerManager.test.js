@@ -12,29 +12,38 @@ describe('test customer manager', () => {
 
     it('should let user login',async () => {
         (await $('body > cm-app-component > main > cm-navbar > nav > div > div > span > ul > li:nth-child(4) > a')).click();
-        await browser.pause(1000);
+        await (await $('input[name="email"]')).waitForExist();
         await (await $('input[name="email"]')).setValue('admin@customermanager.com');
         await (await $('input[name="password"]')).setValue('password1234');
         await (await $('button[type="submit"]')).click();
         assert.equal(await (await $('body > cm-app-component > main > cm-navbar > nav > div > div > span > ul > li:nth-child(4) > a')).getText(),'Logout');
     });
 
-    xit('should filter customers', async () => {
-        await write('ted',into(inputField(below('Filter:'))));
-        await press('Enter');
-        assert.equal((await text('View Orders').get()).length,1); 
+    it('should filter customers', async () => {
+        await (await $('input[name="filter"]')).setValue('ted');
+        await browser.keys("\uE007");
+        assert.equal((await $$('.card')).length,1); 
     });
 
-    xit('should let adding customer', async () => {
-        await click('New Customer');
-        await write('first name',into(textBox(below('First Name'))));
-        await write('last name',into(textBox(below('Last Name'))));
-        await write('address',into(textBox(below('Address'))));
-        await write('city',into(textBox(below('City'))));
-        await dropDown(below('State')).select('Alabama');
-        await click('Insert');
-        await click('3');
-        assert.ok(await text('First name Last name').exists());
+    it('should let adding customer', async () => {
+        await (await $('a[href="/customers/0/edit"]')).click();
+        await (await $('input[name="firstName"]')).waitForExist();
+        await (await $('input[name="firstName"]')).setValue('first name');
+        await (await $('input[name="lastName"]')).setValue('last name');
+        await (await $('input[name="address"]')).setValue('address');
+        await (await $('input[name="city"]')).setValue('city');
+        await (await $('select[name="state"]')).selectByIndex(0);
+        await browser.execute('window.scrollBy(0,500)');
+        await (await $('button[type="submit"]')).click();
+        await (await $('cm-pagination li:nth-child(4) a')).waitForExist();
+        await browser.execute('window.scrollBy(0,500)');
+        await (await $('cm-pagination li:nth-child(4) a')).click();
+        let cards = await $$('.card .card-header .white');
+        let matchFound = false;
+        for(const card of cards){
+            if ((await card.getText()) === 'First name Last name')matchFound = true;
+        };
+        assert.ok(matchFound);
     });
 
     xit('should let edit customer', async () => {

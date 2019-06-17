@@ -31,7 +31,6 @@ context('test customer manager', () => {
       cy.contains('Insert').click();
       cy.wait(2000);
       cy.get('a').contains('3').click();
-      cy.wait(2000);
       cy.contains(' First name Last name ');
     });
 

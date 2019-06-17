@@ -44,14 +44,14 @@ Kernel Version: Darwin 18.0.0
 Boot Volume: Macintosh HD
 Boot Mode: Normal
 ```
-All tests were ran in headless mode using command `time npm test`
+All tests were ran in headless mode using command `time npm test`. Lesser time and lesser CPU denotes better performance. 
 
-| Tools       | User(sec) | System(sec) | CPU(%) | Total(sec) |
-|-------------|-----------|-------------|--------|------------|
-| Cypress     | 15.10     | 2.43        | 111    | 15.734     |
-| Selenium    | 0.77      | 0.16        | 6      | 13.687     |
-| Taiko       | 1.96      | 0.74        | 41     | 6.556      |
-| Testcafe    | 4.76      | 0.73        | 26     | 20.370     |
-| WebdriverIO | 1.99      | 0.52        | 46     | 5.447      |
+| Tools       | CPU(%) | Total(sec) |
+|-------------|--------|------------|
+| Cypress     | 111    | 15.734     |
+| Selenium    | 6      | 13.687     |
+| Taiko       | 41     | 6.556      |
+| Testcafe    | 26     | 20.370     |
+| WebdriverIO | 46     | 5.447      |
 
 

@@ -1,6 +1,6 @@
 const assert = require('assert');
 const { openBrowser,closeBrowser, goto, title, click, textBox, 
-    write, text,into, below, press, toRightOf, inputField, waitFor, dropDown, screenshot } = require('taiko');
+    write, text,into, below, press, toRightOf, dropDown } = require('taiko');
 
 describe('test customer manager', () => {
 
@@ -20,14 +20,14 @@ describe('test customer manager', () => {
 
     it('should let user login',async () => {
         await click('Login');
-        await write('admin@customermanager.com',into(inputField(toRightOf('Email:'))));
-        await write('password1234',into(inputField(toRightOf('Password:'))));
+        await write('admin@customermanager.com',into(textBox(toRightOf('Email:'))));
+        await write('password1234',into(textBox(toRightOf('Password:'))));
         await click('Login',below('Password:'));
         assert.ok(await text('Logout').exists());
     });
 
     it('should filter customers', async () => {
-        await write('ted',into(inputField(below('Filter:'))));
+        await write('ted',into(textBox(below('Filter:'))));
         await press('Enter');
         assert.equal((await text('View Orders').get()).length,1); 
     });

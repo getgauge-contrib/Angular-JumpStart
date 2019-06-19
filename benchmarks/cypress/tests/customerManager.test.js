@@ -29,7 +29,10 @@ context('test customer manager', () => {
       cy.get('input[name="city"]').type('city');
       cy.get('select[name="state"]').select('Alabama'); 
       cy.contains('Insert').click();
-      cy.wait(2000);
+      cy.wait(2000); 
+      // had to add wait as  cy.get('a', { timeout: 10000 }).contains('3').click(); 
+      // and increasing defaultCommandTimeout to 10000 did not help 
+      // https://github.com/cypress-io/cypress/issues/2113
       cy.get('a').contains('3').click();
       cy.contains(' First name Last name ');
     });

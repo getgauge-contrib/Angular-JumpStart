@@ -43,8 +43,17 @@ System Version: macOS 10.14 (18A391)
 Kernel Version: Darwin 18.0.0
 Boot Volume: Macintosh HD
 Boot Mode: Normal
+node: v12.1.0
 ```
-All tests were ran in headless mode using command `time npm test`. Lesser time and lesser CPU denotes better performance. 
+All tests were ran in headless mode using command `time npm test`. Mocha runner is used expect for cypress and testcafe. Lesser time and lesser CPU denotes better performance. 
+
+Versions of tools used: 
+
+- Cypress - 3.2.0
+- Selenium - 4.0.0-alpha.1 (chromedriver - 74.0.0)
+- Taiko - 0.8.0
+- Testcafe - 1.2.0
+- WebdriverIO - 5.9.6 (chromedriver - 74.0.0)
 
 | Tools       | CPU(%) | Total(sec) |
 |-------------|--------|------------|

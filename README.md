@@ -54,10 +54,12 @@ Versions of tools used:
 - Taiko - 0.8.0
 - Testcafe - 1.2.0
 - WebdriverIO - 5.9.6 (chromedriver - 74.0.0)
+- Puppeteer - 1.17.0
 
 | Tools       | CPU(%) | Total(sec) |
 |-------------|--------|------------|
 | Cypress     | 111    | 15.734     |
+| Puppeteer   | 53     | 2.625      |
 | Selenium    | 6      | 13.687     |
 | Taiko       | 41     | 6.556      |
 | Testcafe    | 26     | 20.370     |

@@ -1,6 +1,7 @@
 # Benchmark taiko
 
 This repo has tests written using cypress, selenium js, taiko, testcafe and webdriverIO. Tests are written against the sample angular customer manager app which tests the flows of adding, editing, filtering and viewing customer details.
+Note: Tests are written for comparison of action, code structuring/flow does not imply anything. 
 
 ### Requirements
 
